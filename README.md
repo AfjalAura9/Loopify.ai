@@ -1,16 +1,43 @@
-# AI-Powered Video to GIF Generator
+# Loopify.AI – MP4/YouTube to AI-Powered GIF Generator
 
-A Streamlit app that generates captioned GIFs from YouTube videos or uploaded MP4s using AI transcription and video processing.
+Loopify.AI is a full-stack web application that lets you convert MP4 videos or YouTube clips into high-quality, captioned GIFs using AI transcription and video processing.
 
 ## Features
-- Enter a theme prompt (e.g., "funny moments")
-- Provide a YouTube URL or upload an MP4
-- Generates 2–3 captioned GIFs based on your prompt
 
-## Setup
-1. Clone this repo
-2. Install dependencies: `pip install -r requirements.txt`
-3. Run: `streamlit run app.py`
+- 🎬 Upload MP4 videos or import from YouTube links
+- 📝 Enter a theme prompt (e.g., "funny moments", "motivational clips")
+- 🤖 AI extracts relevant lines from the video
+- ✂️ Select a line to generate a GIF
+- 🖼️ Download or preview your GIFs
+- ⚡ FastAPI backend, React frontend
 
-## Deployment
-Deploy free on [Streamlit Cloud](https://streamlit.io/cloud)
+---
+
+## Demo
+
+![Loopify.AI Demo](demo.gif) <!-- Add a demo GIF or screenshot if available -->
+
+---
+
+## Project Structure
+
+
+
+---
+
+## Getting Started
+
+### 1. Clone the repository
+
+```sh
+git clone https://github.com/your-username/loopify-ai.git
+cd loopify-ai
+
+### 2. Backend Setup (FastAPI)
+```sh
+cd backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
