@@ -8,8 +8,10 @@ function App() {
   const [activeStep, setActiveStep] = useState(0); // 0: Upload/Prompt, 1: Select Line, 2: Generate GIF
   const [step1Panel, setStep1Panel] = useState("upload"); // "upload" or "prompt"
   const [showYTPanel, setShowYTPanel] = useState(false);
+  const [showYTModal, setShowYTModal] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
   const [videoUrl, setVideoUrl] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
   const [useUrl, setUseUrl] = useState(false);
   const [urlError, setUrlError] = useState("");
   const [processing, setProcessing] = useState(false);
@@ -197,6 +199,18 @@ function App() {
     setActiveStep((prev) => prev + 1);
   };
 
+  // When user clicks "import from link"
+  const handleImportClick = () => setShowYTModal(true);
+
+  // When user submits the modal
+  const handleYTSubmit = (e) => {
+    e.preventDefault();
+    if (!youtubeUrl) return;
+    setShowYTModal(false);
+    setVideoUrl(youtubeUrl); // Save for processing
+    setActiveStep(1); // Go to prompt card
+  };
+
   return (
     <>
       <Navbar />
@@ -204,7 +218,8 @@ function App() {
         <div className={`dashboard-intro${animateIntro ? " floating-up" : ""}`}>
           <h1 className="dashboard-title">
             Convert{" "}
-            <span className="dashboard-title-highlight">MP4 to GIFs</span> in Seconds
+            <span className="dashboard-title-highlight">MP4 to GIFs</span> in
+            Seconds
           </h1>
           <div className="dashboard-subtitle">
             Transform your favorite video moments into high-quality,
@@ -238,18 +253,24 @@ function App() {
               {activeStep === 0 && !showYTPanel && (
                 <div className="upload-panel-active">
                   <div className="modal-title">Upload MP4 Video</div>
-                  <Dropzone onDrop={handleDrop} accept={{ "video/mp4": [".mp4"] }}>
+                  <Dropzone
+                    onDrop={handleDrop}
+                    accept={{ "video/mp4": [".mp4"] }}
+                  >
                     {({ getRootProps, getInputProps, isDragActive }) => (
                       <div
                         {...getRootProps()}
-                        className={`dropzone-custom${isDragActive ? " active" : ""}`}
+                        className={`dropzone-custom${
+                          isDragActive ? " active" : ""
+                        }`}
                       >
                         <input {...getInputProps()} />
                         <button className="modal-upload-btn" type="button">
                           Upload a File
                         </button>
                         <div className="modal-drop-desc">
-                          Drag & drop a file<br />
+                          Drag & drop a file
+                          <br />
                           or{" "}
                           <span
                             className="modal-link"
@@ -259,82 +280,80 @@ function App() {
                             import from a link
                           </span>
                         </div>
-                        {selectedFile && (
-                          <div className="selected-file-label" style={{ marginTop: 16 }}>
-                            Selected file: <b>{selectedFile.name}</b>
-                          </div>
-                        )}
                       </div>
                     )}
                   </Dropzone>
                   {selectedFile && (
-                    <div><button
-                      className="modal-next-btn"
-                      style={{ marginTop: 18 }}
-                      onClick={handleNext}
+                    <div
+                      className="selected-file"
+                      style={{
+                        margin: "24px 0 8px 0",
+                        textAlign: "center",
+                        color: "#fff",
+                      }}
                     >
-                      Next
-                    </button></div>
+                      Selected file: <b>{selectedFile.name}</b>
+                    </div>
+                  )}
+                  {selectedFile && (
+                    <div>
+                      <button
+                        className="modal-next-btn"
+                        style={{ marginTop: 18 }}
+                        onClick={handleNext}
+                      >
+                        Next
+                      </button>
+                    </div>
                   )}
                 </div>
               )}
               {/* Step 1: Import from Link */}
               {activeStep === 0 && showYTPanel && (
-                <div className="upload-panel-active">
-                  <div className="modal-title">Import from YouTube Link</div>
+                <div className="youtube-link-card">
+                  <div className="youtube-link-title">
+                    Import from YouTube Link
+                  </div>
                   <form
-                    className="modal-url-form"
+                    className="youtube-link-form"
                     onSubmit={handleYTPanelSubmit}
                     autoComplete="off"
-                    style={{
-                      flexDirection: "column",
-                      gap: 16,
-                      width: "100%",
-                    }}
                   >
                     <input
                       type="url"
-                      className="modal-url-input"
+                      className="youtube-link-input"
                       placeholder="Paste YouTube video URL"
                       value={videoUrl}
                       onChange={(e) => setVideoUrl(e.target.value)}
                       required
-                      style={{ marginBottom: 12, width: "100%" }}
                     />
                     <input
-                      className="prompt-input"
+                      className="youtube-link-input"
                       type="text"
                       placeholder='Enter GIF theme prompt (e.g., "funny moments")'
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
                       required
-                      style={{ marginBottom: 12, width: "100%" }}
                     />
-                    <div style={{ display: "flex", gap: 12 }}>
+                    <div className="youtube-link-actions">
                       <button
                         type="button"
-                        className="modal-url-btn"
-                        style={{
-                          flex: 1,
-                          background: "#23242a",
-                          color: "#bbb",
-                        }}
+                        className="youtube-link-cancel"
                         onClick={() => setShowYTPanel(false)}
                       >
                         Cancel
                       </button>
                       <button
                         type="submit"
-                        className="modal-url-btn"
+                        className="youtube-link-next"
                         disabled={processing}
-                        style={{ flex: 1 }}
                       >
                         Next
                       </button>
                     </div>
                   </form>
                   {(urlError || processError) && (
-                    <div style={{ color: "#ef4444", marginTop: 12 }}>
+                    <div className="youtube-link-error">
                       {urlError || processError}
                     </div>
                   )}
@@ -342,54 +361,42 @@ function App() {
               )}
               {/* Step 2: Prompt Input */}
               {activeStep === 1 && (
-                <div className="upload-panel-active">
-                  <div className="modal-title">Enter GIF Theme Prompt</div>
-                  <form
-                    className="modal-url-form"
-                    onSubmit={handlePromptSubmit}
-                    autoComplete="off"
-                    style={{
-                      flexDirection: "column",
-                      gap: 16,
-                      width: "100%",
-                    }}
-                  >
-                    <input
-                      className="prompt-input"
-                      type="text"
-                      placeholder='e.g., "funny moments", "motivational clips"'
-                      value={prompt}
-                      onChange={(e) => setPrompt(e.target.value)}
-                      required
-                    />
-                    <div style={{ display: "flex", gap: 12, marginTop: 8 }}>
+                <div className="gif-theme-card">
+                  <div className="gif-theme-title">Enter GIF Theme Prompt</div>
+                  <textarea
+                    className="gif-theme-input"
+                    placeholder="Eg: Hello, Good morning, Funny"
+                    value={prompt}
+                    onChange={(e) => setPrompt(e.target.value)}
+                    rows={3}
+                  />
+                  <div className="gif-theme-suggestions-label">Try these</div>
+                  <div className="gif-theme-suggestions">
+                    {[
+                      "Hello",
+                      "Good Morning",
+                      "How is it going",
+                      "Motivational clips",
+                    ].map((s, i) => (
                       <button
+                        key={i}
                         type="button"
-                        className="modal-url-btn"
-                        style={{
-                          flex: 1,
-                          background: "#23242a",
-                          color: "#bbb",
-                          border: "1px solid #31323a",
-                        }}
-                        onClick={handleBackToStep1}
+                        className="gif-theme-suggestion-btn"
+                        onClick={() => setPrompt(s)}
                       >
-                        Back
+                        {s}
                       </button>
-                      <button
-                        type="submit"
-                        className="modal-url-btn"
-                        disabled={processing || !prompt.trim()}
-                        style={{ flex: 1 }}
-                      >
-                        Process GIF
-                      </button>
-                    </div>
-                  </form>
+                    ))}
+                  </div>
+                  <button
+                    className="gif-theme-generate-btn"
+                    onClick={handlePromptSubmit}
+                    disabled={processing || !prompt.trim()}
+                  >
+                    Convert to GIF
+                  </button>
                   {processError && (
-                    <div style={{ color: "#ef4444", marginTop: 12 }}>
-                      {processError}
-                    </div>
+                    <div className="gif-prompt-error">{processError}</div>
                   )}
                 </div>
               )}
@@ -472,6 +479,37 @@ function App() {
               )}
             </div>
           </div>
+          {showYTModal && (
+            <div className="modal-overlay">
+              <div className="modal-box">
+                <h2>Import from YouTube Link</h2>
+                <form onSubmit={handleYTSubmit}>
+                  <input
+                    type="url"
+                    placeholder="Paste YouTube video URL"
+                    value={youtubeUrl}
+                    onChange={(e) => setYoutubeUrl(e.target.value)}
+                    required
+                  />
+                  <div
+                    style={{
+                      display: "flex",
+                      gap: 12,
+                      marginTop: 16,
+                    }}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setShowYTModal(false)}
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit">Next</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </>
