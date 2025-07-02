@@ -1,6 +1,6 @@
 fastapi
 uvicorn
-moviepy
+moviepy==1.0.3
 pytube
 openai-whisper
 numpy
