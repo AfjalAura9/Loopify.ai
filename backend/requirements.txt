@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+moviepy
+pytube
+openai-whisper
+numpy
+Pillow
+yt-dlp
+webvtt-py
