@@ -33,8 +33,8 @@ Loopify.AI is a full-stack web application that lets you convert MP4 videos or Y
 git clone https://github.com/your-username/loopify-ai.git
 cd loopify-ai
 ```
-
 ### 2. Backend Setup (FastAPI)
+
 ```sh
 cd backend
 python -m venv venv
