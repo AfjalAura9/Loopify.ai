@@ -18,7 +18,10 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://vercel.com/afjalaura9s-projects/loopify-ai"],
+    allow_origins=[
+        "http://localhost:3000",           # for local frontend
+        "https://loopify-ai.vercel.app/" # for deployed frontend
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
