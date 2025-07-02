@@ -32,6 +32,7 @@ Loopify.AI is a full-stack web application that lets you convert MP4 videos or Y
 ```sh
 git clone https://github.com/your-username/loopify-ai.git
 cd loopify-ai
+```
 
 ### 2. Backend Setup (FastAPI)
 ```sh
@@ -41,3 +42,16 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
+
+### 3. Frontend Setup (React)
+```sh
+cd ../frontend
+npm install
+npm start
+```
+
+### 4. Deployement
+#### Free Hosting Recommendations
+
+##### Frontend: Vercel or Netlify
+##### Backend: Render or Railway
