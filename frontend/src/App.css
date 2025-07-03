@@ -27,7 +27,7 @@ html,
 }
 
 .dashboard-title {
-  font-size: 2.8rem;
+  font-size: 40px;
   font-weight: 800;
   color: #fff;
   margin-bottom: 18px;
@@ -45,7 +45,7 @@ html,
   font-size: 1.15rem;
   margin-bottom: 32px;
   max-width: 480px;
-  text-align: center;
+  text-align: left;
 }
 
 .dashboard-btn {
@@ -140,6 +140,14 @@ html,
   padding-bottom: 48px;
   padding-left: 32px;
   padding-right: 32px;
+}
+
+.upload-panel-active h1 {
+  color: white;
+  font-size: 24px;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 24px;
 }
 
 @media (max-width: 600px) {
@@ -500,7 +508,7 @@ html,
 }
 
 .gif-modal {
-  background: #23272f;
+  background: #181a20;
   border-radius: 18px;
   padding: 36px 28px 28px 28px;
   max-width: 700px;
@@ -575,11 +583,12 @@ html,
 .loader {
   border: 6px solid #f3f3f3;
   border-top: 6px solid #1e90ff;
-  border-radius: 50%;
+  border-radius: 100%;
   width: 48px;
   height: 48px;
   animation: spin 1s linear infinite;
   margin-bottom: 18px;
+  display: inline-block
 }
 
 .lines-select-list {
@@ -670,6 +679,8 @@ html,
   padding-left: 100px;
   padding-right: 130px;
   position: relative;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Prevent modal overlays from causing scrollbars */
@@ -690,8 +701,8 @@ html,
 
 /* --- GIF Prompt Card Modern Styles --- */
 .gif-prompt-card {
-  background: rgba(30, 32, 40, 0.98);
-  box-shadow: 0 8px 32px 0 #2563eb33, 0 2px 8px #0002;
+  background: #181a20;
+      box-shadow: 0 8px 40px 0 #0003;
   border-radius: 22px;
   padding: 36px 32px 28px 32px;
   min-width: 340px;
@@ -707,38 +718,40 @@ html,
 }
 
 .gif-prompt-title {
-  font-size: 1.45rem;
-  font-weight: 800;
-  margin-bottom: 18px;
-  letter-spacing: 0.01em;
-  color: #2563eb;
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  justify-content: center;
+font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+    letter-spacing: 0.01em;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    justify-content: center;
 }
 
 .gif-prompt-form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 18px;
 }
 
-.gif-prompt-input.styled {
-  width: 100%;
-  padding: 16px 20px;
-  border-radius: 14px;
+.gif-prompt-input {
+width: 100%;
+  box-sizing: border-box;
+  border-radius: 16px;
   border: none;
   background: #23242a;
-  color: #fff;
-  font-size: 1.08rem;
-  margin-bottom: 0;
+  color: #ffffff;
+  font-size: 1.1rem;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+  font-family: 'Inter', sans-serif;
+  resize: none;
   outline: none;
-  box-shadow: 0 2px 8px #1e90ff11;
-  transition: background 0.2s, box-shadow 0.2s;
-  font-family: inherit;
+  max-width: 100%;
+  overflow: hidden;
 }
+
 .gif-prompt-input.styled:focus {
   background: #23263a;
   box-shadow: 0 4px 16px #2563eb33;
@@ -862,9 +875,11 @@ html,
 
 .gif-theme-suggestions-label {
   color: #fff;
-  font-size: 1.08rem;
+  font-size: 14px;
   font-weight: 600;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  margin-top: 24px;
+  text-align: left;
 }
 
 .gif-theme-suggestions {
@@ -920,23 +935,27 @@ html,
 
 /* --- YouTube Link Card Styles --- */
 .youtube-link-card {
-  background: #181a20;
-  border-radius: 22px;
-  padding: 36px 32px 28px 32px;
-  width: 420px;
-  min-height: 340px;
-  max-width: 100%;
-  margin: 0 auto;
-  box-shadow: 0 8px 40px 0 #0006, 0 1.5px 0 #2563eb33;
+  width: 547px;
+  height: 282px;
+  min-width: 547px;
+  min-height: 282px;
+  max-width: 547px;
+  max-height: 282px;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 40px 0 #0006, 0 1.5px 0 #2563eb33;
+  border-radius: 40px;
+  background: #181a20;
+  margin: 0 auto;
+  padding: 0;
 }
 
 .youtube-link-title {
-  font-size: 2rem;
+  font-family: "Inter", sans-serif;
   font-weight: 700;
+  font-size: 24px;
   color: #fff;
   text-align: center;
   margin-bottom: 28px;
@@ -946,44 +965,44 @@ html,
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  align-items: center;
+  gap: 0;
 }
 
 .youtube-link-input {
-  width: 100%;
-  box-sizing: border-box;
+  width: 440px;
+  height: 53px;
   border-radius: 14px;
   border: none;
   background: #23242a;
   color: #cbd5e1;
-  font-size: 1.08rem;
-  padding: 16px 18px;
-  outline: none;
-  margin-bottom: 0;
-  box-shadow: 0 1px 4px #0001;
-  transition: background 0.2s;
-  display: block;
+  font-size: 18px;
+  padding: 0 20px;
+  margin-bottom: 32px;
+  font-family: "Inter", sans-serif;
 }
+
 .youtube-link-input::placeholder {
-  color: #a0aec0;
+  color: #7b8494;
   opacity: 1;
 }
 
 .youtube-link-actions {
   display: flex;
-  gap: 16px;
-  margin-top: 8px;
-  justify-content: center;
+  gap: 13px;
+  width: 483px;
+  justify-content: space-between;
 }
 
 .youtube-link-cancel,
 .youtube-link-next {
-  flex: 1;
-  padding: 0.8rem 0;
+  width: 235px;
+  height: 47px;
   border-radius: 10px;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
   border: none;
-  font-size: 1.08rem;
-  font-weight: 600;
   cursor: pointer;
   transition: background 0.18s, color 0.18s;
 }
@@ -996,40 +1015,152 @@ html,
 .youtube-link-next {
   background: #2563eb;
   color: #fff;
+  opacity: 1;
 }
 
 .youtube-link-next:disabled {
-  background: #a0aec0;
-  color: #fff;
-  cursor: not-allowed;
+  background: #2563eb;
   opacity: 0.7;
+  cursor: not-allowed;
 }
 
 .youtube-link-error {
   color: #ef4444;
   margin-top: 12px;
-  font-size: 1rem;
+  font-size: 16px;
   text-align: center;
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.55);
+.combined-upload-panel {
+  background: #181a20;
+  border-radius: 24px;
+  padding: 40px 32px 32px 32px;
+  width: 540px;
+  margin: 0 auto;
+  box-shadow: 0 8px 40px 0 #0003;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.dropzone-area {
+  background: #181a20;
+  border: 2px dashed #2563eb;
+  border-radius: 22px;
+  padding: 36px 24px 32px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+
+  position: relative;
+}
+
+.dropzone-icon {
+  margin-bottom: 12px;
+}
+
+.dropzone-text {
+  color: #7b8494;
+  font-size: 16px;
+  margin-bottom: 18px;
+}
+
+.upload-btn {
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 14px 36px;
+  font-size: 1.15rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 0;
+  margin-top: 8px;
+  transition: background 0.18s;
+}
+
+.upload-btn:hover {
+  background: #1e40af;
+}
+
+.upload-info {
+  color: #7b8494;
+  font-size: 0.98rem;
+  margin: 8px 0 12px 0;
+  text-align: left;
+}
+
+.divider-row {
   display: flex;
   align-items: center;
-  justify-content: center;
-  z-index: 1000;
 }
-.modal-box {
-  background: #23263a;
-  border-radius: 18px;
-  padding: 36px 32px 28px 32px;
-  width: 420px;
-  max-width: 95vw;
-  box-shadow: 0 8px 32px 0 #1e90ff33, 0 2px 8px #0002;
+
+.divider {
+  flex: 1;
+  height: 1.5px;
+  background: #e5e7eb;
+  border-radius: 1px;
+}
+
+.divider-or {
+  margin: 0 16px;
+  color: #7b8494;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.yt-link-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.yt-link-label {
+  color: #181a20;
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.yt-link-input-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.yt-link-input {
+  width: 100%;
+  max-width: 400px;
+  height: 47px;
+  border-radius: 12px;
+  border: none;
+  background: #23242a;
+  color: #cbd5e1;
+  font-size: 1.08rem;
+  padding: 0 18px;
+  font-family: "Inter", sans-serif;
+}
+
+.yt-link-input::placeholder {
+  color: #7b8494;
+  opacity: 1;
+}
+
+.yt-link-import-btn {
+  width: 90px;
+  height: 47px;
+  border-radius: 12px;
+  background: #2563eb;
   color: #fff;
+  font-weight: 600;
+  font-size: 1.08rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.18s;
+}
+
+.yt-link-import-btn:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
 }

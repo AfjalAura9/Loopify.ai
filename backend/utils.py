@@ -5,6 +5,7 @@ import tempfile
 import os
 import webvtt
 import moviepy.editor as mp
+import re
 
 from moviepy.config import change_settings
 change_settings({"IMAGEMAGICK_BINARY": r"C:\Program Files\ImageMagick-7.1.1-Q16-HDRI\magick.exe"})
@@ -44,6 +45,15 @@ def extract_youtube_captions(youtube_url):
         return transcript
 
 def download_youtube_video(youtube_url):
+    import yt_dlp
+    ydl_opts = {
+        'outtmpl': r'D:/Projects/Persist_Venture_Assignment/persist_uploads/%(id)s.%(ext)s',
+        'cachedir': r'D:/Projects/Persist_Venture_Assignment/persist_uploads',
+        # ...other options... Suna Sunheri
+    }
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(youtube_url, download=True)
+        return ydl.prepare_filename(info)
     out_dir = tempfile.mkdtemp()
     out_path = os.path.join(out_dir, "video.%(ext)s")
     ydl_opts = {
@@ -75,12 +85,31 @@ def transcribe_audio(video_path):
         for seg in result['segments']
     ]
 
-def extract_key_lines(transcript, prompt, num_lines=2):
+def is_complete_sentence(text):
+    # Ends with ., !, or ? and starts with a capital letter
+    text = text.strip()
+    return bool(re.match(r'^[A-Z].*[.!?]$', text))
+
+def extract_key_lines(transcript, prompt, num_lines=2, max_duration=3.0, max_chars=120):
+    """
+    Returns up to num_lines lines matching the prompt (if given), each <= max_duration seconds,
+    is a complete sentence, and not too long.
+    """
+    def is_short_and_complete(line):
+        duration = line['end'] - line['start']
+        text = line['text'].strip()
+        return (
+            duration <= max_duration and
+            len(text) <= max_chars and
+            is_complete_sentence(text)
+        )
+
     if prompt:
-        filtered = [line for line in transcript if prompt.lower() in line['text'].lower()]
+        filtered = [line for line in transcript if prompt.lower() in line['text'].lower() and is_short_and_complete(line)]
         if filtered:
             return filtered[:num_lines]
-    return transcript[:num_lines]
+    # If no prompt or no matches, return first N short, complete lines
+    return [line for line in transcript if is_short_and_complete(line)][:num_lines]
 
 def clip_video_segments(video_path, start, end, idx):
     clip = mp.VideoFileClip(video_path)
@@ -99,7 +128,7 @@ def clip_video_segments(video_path, start, end, idx):
 
 def overlay_captions_on_video(video_path, caption, idx):
     clip = mp.VideoFileClip(video_path)
-    txt = mp.TextClip(caption, fontsize=24, color='white', bg_color='black', size=clip.size, method='caption')
+    txt = mp.TextClip(caption, fontsize=32, color='white', bg_color='rgba(0,0,0,0.5)', size=(clip.w, 60), method='caption')
     txt = txt.set_position(('center', 'bottom')).set_duration(clip.duration)
     result = mp.CompositeVideoClip([clip, txt])
     out_path = tempfile.mktemp(suffix=f"_captioned{idx}.mp4")
