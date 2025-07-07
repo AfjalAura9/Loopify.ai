@@ -15,13 +15,51 @@ Loopify.AI is a full-stack web application that lets you convert MP4 videos or Y
 
 ## Demo
 
-![Loopify.AI Demo](demo.gif) <!-- Add a demo GIF or screenshot if available -->
+![Loopify.AI Demo](Landing_page.png) <!-- Add a demo GIF or screenshot if available -->
 
 ---
 
-## Project Structure
+## Technologies used
 
+**Frontend:**
+- React
+- JavaScript
+- CSS
 
+**Backend:**
+- FastAPI
+- Python
+- MoviePy
+- OpenAI Whisper
+- yt-dlp
+- webvtt-py
+
+**Other:**
+- Git & GitHub for version control
+- Vercel for frontend deployment
+- Render for backend deployment
+---
+
+## 📂 Project Structure
+
+```
+.
+├── backend/           # FastAPI backend
+│   ├── main.py
+│   ├── utils.py
+│   ├── requirements.txt
+│   └── ...
+├── frontend/          # React frontend
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── ...
+├── persist_uploads/   # Temporary uploads
+├── sample_videos/     # Sample videos (optional)
+├── .gitignore
+├── README.md
+└── ...
+```
 
 ---
 
@@ -33,25 +71,58 @@ Loopify.AI is a full-stack web application that lets you convert MP4 videos or Y
 git clone https://github.com/your-username/loopify-ai.git
 cd loopify-ai
 ```
+
 ### 2. Backend Setup (FastAPI)
 
 ```sh
 cd backend
 python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+# On Windows:
+venv\Scripts\activate
+# On macOS/Linux:
+source venv/bin/activate
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
 ### 3. Frontend Setup (React)
+
 ```sh
 cd ../frontend
 npm install
 npm start
 ```
 
-### 4. Deployement
-#### Free Hosting Recommendations
+### 4. Usage
 
-##### Frontend: Vercel or Netlify
-##### Backend: Render or Railway
+- Open [http://localhost:3000](http://localhost:3000) in your browser.
+- Upload an MP4 file or paste a YouTube link.
+- Enter a theme prompt and generate GIFs.
+
+---
+
+## 🧑‍💻 Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+
+---
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## 🙋‍♂️ Contact
+
+For questions or support, please open an issue or contact [afjalshaiktechy@gmail.com](mailto:afjalshaiktechy@gmail.com).
+
+---
+
+## ⭐ Acknowledgements
+
+- [FastAPI](https://fastapi.tiangolo.com/)
+- [React](https://react.dev/)
+- [MoviePy](https://zulko.github.io/moviepy/)
+- [OpenAI Whisper](https://github.com/openai/whisper)
+- [yt-dlp](https://github.com/yt-dlp/yt-dlp)
